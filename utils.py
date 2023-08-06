@@ -42,3 +42,10 @@ def load_images_from_folder(folder_path):
     batch_size = hyperparameters.batch_size
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4, pin_memory=True)
     return dataloader
+
+def save_model(model):
+    model_folder = "model"
+    if not os.path.exists(model_folder):
+        os.makedirs(model_folder)
+    # Save the model
+    torch.save(model.state_dict(), f"{model_folder}/model.pth")
