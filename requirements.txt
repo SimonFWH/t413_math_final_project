@@ -4,3 +4,6 @@ Pillow
 torch
 torchvision
 tqdm
+plotly==5.15.0  
+nbconvert==7.6.0 
+ipykernel==6.23.3
