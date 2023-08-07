@@ -17,7 +17,7 @@ def infer(model, test_path):
     # Create a figure and axis for the grid
     fig, axes = plt.subplots(3, 3, figsize=(12, 12))
 
-    start_index = 0
+    start_index = 36
     while start_index < len(image_files):
         # Clear the previous grid
         for ax in axes.ravel():
@@ -35,6 +35,7 @@ def infer(model, test_path):
             input_image = transform(image).unsqueeze(0)
             plot_image = input_image.squeeze(0).permute(1, 2, 0).numpy()
             # Make predictions with the model
+            input_image = input_image.to(torch.device("cuda"))
             with torch.no_grad():
                 output = model(input_image)
             # Extract predicted bounding box
@@ -80,6 +81,7 @@ def infer(model, test_path):
         # Adjust spacing and display the grid of images
         plt.tight_layout()
         plt.draw()
+        plt.savefig("results.jpg")
         plt.waitforbuttonpress()
         # Increment the start index
         start_index += 9

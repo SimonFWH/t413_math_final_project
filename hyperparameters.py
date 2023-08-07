@@ -1,4 +1,4 @@
-batch_size = 128
+batch_size = 32
 num_epochs = 20
 lr = 0.001
-patience = 3 
+patience = 5

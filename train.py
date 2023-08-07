@@ -15,7 +15,7 @@ def train(model, train_dataloader, valid_dataloader, num_epochs):
     prev_train = 0
     prev_valid = 0
 
-    best_valid_loss = float('inf')
+    best_valid_iou = -1
     current_patience = 0
 
     plt.ion()
@@ -74,13 +74,13 @@ def train(model, train_dataloader, valid_dataloader, num_epochs):
         valid_loss /= j+1
         valid_iou /= len(valid_dataloader.dataset)
 
-        if valid_loss < best_valid_loss:
-            best_valid_loss = valid_loss
+        if valid_iou > best_valid_iou:
+            best_valid_iou = valid_iou
             current_patience = 0
             utils.save_model(model)
         else:
             current_patience += 1
-
+        print(f'current patience: {current_patience}')
         if current_patience >= hyperparameters.patience:
             print(f"Early stopping at epoch {epoch} due to lack of improvement.")
             break
