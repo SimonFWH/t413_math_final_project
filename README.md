@@ -6,7 +6,7 @@ Members:
 - Mayuresh Nerurkar
 
 ## Link
-Public URL for the page is - `SimonFWH.github.io/t413_math_final_project`
+Public URL for the page is - `https://github.com/SimonFWH/t413_math_final_project`
 
 ## Overview
 This project aims to tackle the intriguing challenge of automating the detection of faces in anime images. Unlike traditional face detection, anime characters exhibit a wide range of artistic styles, making this task both captivating and demanding.
