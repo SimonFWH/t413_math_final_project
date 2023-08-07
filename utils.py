@@ -49,3 +49,29 @@ def save_model(model):
         os.makedirs(model_folder)
     # Save the model
     torch.save(model.state_dict(), f"{model_folder}/model.pth")
+
+def calculate_iou(boxA, boxB):
+    # Extract coordinates from boxA and boxB
+    xA, yA, wA, hA = boxA
+    xB, yB, wB, hB = boxB
+
+    # Calculate coordinates of the intersection rectangle
+    x_left = max(xA - wA / 2, xB - wB / 2)
+    y_top = max(yA - hA / 2, yB - hB / 2)
+    x_right = min(xA + wA / 2, xB + wB / 2)
+    y_bottom = min(yA + hA / 2, yB + hB / 2)
+
+    # Calculate intersection area
+    intersection_area = max(0, x_right - x_left) * max(0, y_bottom - y_top)
+
+    # Calculate areas of boxA and boxB
+    areaA = wA * hA
+    areaB = wB * hB
+
+    # Calculate union area
+    union_area = areaA + areaB - intersection_area
+
+    # Calculate IoU
+    iou = intersection_area / union_area
+
+    return iou
