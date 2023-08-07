@@ -74,6 +74,17 @@ def train(model, train_dataloader, valid_dataloader, num_epochs):
         valid_loss /= j+1
         valid_iou /= len(valid_dataloader.dataset)
 
+        if valid_loss < best_valid_loss:
+            best_valid_loss = valid_loss
+            current_patience = 0
+            utils.save_model(model)
+        else:
+            current_patience += 1
+
+        if current_patience >= hyperparameters.patience:
+            print(f"Early stopping at epoch {epoch} due to lack of improvement.")
+            break
+
         print(f'Epoch [{epoch+1}/{num_epochs}], Training Loss: {train_loss}, Validation Loss: {valid_loss}, Train IoU: {train_iou:.4f}, Validation IoU: {valid_iou:.4f}')
 
         # Plot the training and validation loss for each epoch
